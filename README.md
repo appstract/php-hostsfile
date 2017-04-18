@@ -4,7 +4,7 @@
 [![Total Downloads](https://img.shields.io/packagist/dt/appstract/php-hostsfile.svg?style=flat-square)](https://packagist.org/packages/appstract/php-hostsfile)
 [![Software License](https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square)](LICENSE.md)
 
-This is where your description should go. Try and limit it to a paragraph or two, and maybe throw in a mention of what PSRs you support to avoid any confusion with users and contributors. Create a link to a medium article.
+Read & Write Entries From the HostsFile with PHP
 
 ## Installation
 

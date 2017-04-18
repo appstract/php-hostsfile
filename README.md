@@ -17,8 +17,8 @@ composer require appstract/php-hostsfile
 ## Usage
 
 ```php
-$skeleton = new Appstract\Skeleton();
-echo $skeleton->echoPhrase('Hello, Appstract!');
+$host = new Appstract\HostsFile();
+$lines = $host->getLines();
 ```
 
 ## Testing

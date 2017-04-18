@@ -17,14 +17,11 @@ composer require appstract/php-hostsfile
 ## Usage
 
 ```php
-$host = new Appstract\HostsFile();
-$lines = $host->getLines();
-```
-
-## Testing
-
-```bash
-$ composer test
+$host = new Appstract\HostsFile($path); // optional path to the file
+$host->getLines(); // get all lines in the hostsfile
+$host->addLine($ip, $domain, $aliases); // add a new line to the hostsfile
+$host->removeLine($domain); // remove a line from the hostsfile by domain
+$host->save(); // save the changes to the hostsfile
 ```
 
 ## Contributing

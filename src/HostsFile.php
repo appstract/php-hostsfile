@@ -1,10 +1,10 @@
 <?php
 
-namespace Appstract;
+namespace Appstract\HostsFile;
 
 use Exception;
 
-class HostsFile
+class Processor
 {
     /**
      * @var string

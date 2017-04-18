@@ -1,0 +1,43 @@
+{
+    "name": "appstract/php-hostsfile",
+    "description": "Read & Write Entries From the HostsFile with PHP",
+    "keywords": [
+        "appstract",
+        "hostsfile",
+        "hosts",
+        "editor",
+        "php"
+    ],
+    "homepage": "https://github.com/appstract/php-hostsfile",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Olav van Schie",
+            "email": "hello@appstract.team",
+            "homepage": "https://appstract.team",
+            "role": "Developer"
+        }
+    ],
+    "require": {
+        "php": ">=5.5"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^5.7"
+    },
+    "autoload": {
+        "psr-4": {
+            "Appstract\\Skeleton\\": "src"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Appstract\\Skeleton\\Test\\": "tests"
+        }
+    },
+    "scripts": {
+        "test": "vendor/bin/phpunit"
+    },
+    "config": {
+        "sort-packages": true
+  }
+}

@@ -26,12 +26,12 @@
     },
     "autoload": {
         "psr-4": {
-            "Appstract\\Skeleton\\": "src"
+            "Appstract\\HostsFile\\": "src"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "Appstract\\Skeleton\\Test\\": "tests"
+            "Appstract\\HostsFile\\Test\\": "tests"
         }
     },
     "scripts": {

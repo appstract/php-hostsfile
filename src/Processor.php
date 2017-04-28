@@ -70,7 +70,6 @@ class Processor
      */
     public function addLine($ip, $domain, $aliases = '')
     {
-
         $this->lines[$domain] = ['ip' => $ip, 'aliases' => $aliases];
 
         return $this;
@@ -168,7 +167,7 @@ class Processor
     protected function writeFile($filePath)
     {
         if (is_file($filePath) && ! is_writable($filePath)) {
-            throw new Exception(sprintf("File '%s' is not writable", $filePath));
+            throw new Exception(sprintf("File '%s' is not writable, run with sudo?", $filePath));
         }
 
         $file = fopen($filePath, 'w');

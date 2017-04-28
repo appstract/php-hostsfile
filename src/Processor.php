@@ -70,13 +70,6 @@ class Processor
      */
     public function addLine($ip, $domain, $aliases = '')
     {
-        if (! filter_var($ip, FILTER_VALIDATE_IP)) {
-            throw new Exception(sprintf("'%s', is not a valid ip", $ip));
-        }
-
-        if (! filter_var($domain, FILTER_VALIDATE_REGEXP, ['options' => ['regexp' => '/^[a-zA-Z0-9\\.]*[a-zA-Z0-9]+?/']])) {
-            throw new Exception(sprintf("'%s', is not a valid domain", $domain));
-        }
 
         $this->lines[$domain] = ['ip' => $ip, 'aliases' => $aliases];
 

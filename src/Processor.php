@@ -154,7 +154,7 @@ class Processor
      */
     protected function explodeLine($line)
     {
-        $line = preg_replace("/\#.+/", "", $line);
+        $line = preg_replace("/\#.+/", '', $line);
 
         preg_match("/^\s*?(.+?)\s+(.+?)$/i", $line, $matches);
 

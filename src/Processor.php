@@ -136,9 +136,12 @@ class Processor
             if (isset($domainLine[1])) {
                 $domain = $domainLine[1];
                 $aliases = isset($domainLine[2]) ? $domainLine[2] : '';
-
-                $this->addLine($ip, $domain, $aliases);
+            } else {
+                $domain = $matches[2];
+                $aliases = '';
             }
+
+            $this->addLine($ip, $domain, $aliases);
         }
     }
 
@@ -151,6 +154,8 @@ class Processor
      */
     protected function explodeLine($line)
     {
+        $line = preg_replace("/\#.+/", "", $line);
+
         preg_match("/^\s*?(.+?)\s+(.+?)$/i", $line, $matches);
 
         return $matches;

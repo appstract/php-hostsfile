@@ -17,8 +17,6 @@ class Processor
      */
     protected $bakPath;
 
-    /**
-     */
     protected $lines;
 
     /**
@@ -78,7 +76,7 @@ class Processor
     }
 
     /**
-     * Removes old value and adds new line
+     * Removes old value and adds new line.
      *
      * @param        $ip
      * @param        $domain
@@ -105,7 +103,7 @@ class Processor
             throw new Exception(sprintf("'%s', is not a valid domain", $domain));
         }
 
-        $this->lines = $this->lines->reject(function($item) use ($domain) {
+        $this->lines = $this->lines->reject(function ($item) use ($domain) {
             return $item['domain'] == $domain;
         });
 

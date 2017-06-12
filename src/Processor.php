@@ -72,7 +72,7 @@ class Processor
      */
     public function addLine($ip, $domain, $aliases = '')
     {
-        $this->lines->push(['domain' => trim($domain), 'ip' => trim($ip), 'aliases' => trim($aliases)]);
+        $this->lines->push(['ip' => trim($ip), 'domain' => trim($domain), 'aliases' => trim($aliases)]);
 
         return $this;
     }

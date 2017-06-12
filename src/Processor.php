@@ -3,6 +3,7 @@
 namespace Appstract\HostsFile;
 
 use Exception;
+use Illuminate\Support\Collection;
 
 class Processor
 {
@@ -17,9 +18,8 @@ class Processor
     protected $bakPath;
 
     /**
-     * @var array
      */
-    protected $lines = [];
+    protected $lines;
 
     /**
      * Hosts constructor.
@@ -45,6 +45,8 @@ class Processor
         $this->filePath = realpath($filePath);
         $this->bakPath = realpath($filePath).'.bak';
 
+        $this->lines = new Collection();
+
         $this->readFile();
     }
 
@@ -55,11 +57,11 @@ class Processor
      */
     public function getLines()
     {
-        return $this->lines;
+        return $this->lines->all();
     }
 
     /**
-     * Add a line.
+     * Adds a line without checking if it already exists.
      *
      * @param        $ip
      * @param        $domain
@@ -70,9 +72,25 @@ class Processor
      */
     public function addLine($ip, $domain, $aliases = '')
     {
-        $this->lines[$domain] = ['ip' => $ip, 'aliases' => $aliases];
+        $this->lines->push(['domain' => trim($domain), 'ip' => trim($ip), 'aliases' => trim($aliases)]);
 
         return $this;
+    }
+
+    /**
+     * Removes old value and adds new line
+     *
+     * @param        $ip
+     * @param        $domain
+     * @param string $aliases
+     *
+     * @return Processor
+     */
+    public function set($ip, $domain, $aliases = '')
+    {
+        $this->removeLine($domain);
+
+        return $this->addLine($ip, $domain, $aliases);
     }
 
     /**
@@ -87,7 +105,9 @@ class Processor
             throw new Exception(sprintf("'%s', is not a valid domain", $domain));
         }
 
-        unset($this->lines[$domain]);
+        $this->lines = $this->lines->reject(function($item) use ($domain) {
+            return $item['domain'] == $domain;
+        });
 
         return $this;
     }
@@ -177,8 +197,8 @@ class Processor
 
         $file = fopen($filePath, 'w');
 
-        foreach ($this->lines as $domain => $attributes) {
-            fwrite($file, $attributes['ip']."\t\t".$domain.' '.$attributes['aliases']." \r\n");
+        foreach ($this->getLines() as $line) {
+            fwrite($file, $line['ip']."\t\t".$line['domain'].' '.$line['aliases']." \r\n");
         }
 
         fclose($file);

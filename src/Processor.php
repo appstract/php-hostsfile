@@ -12,7 +12,6 @@ class Processor
      */
     protected $filePath;
 
-
     protected $lines;
 
     /**

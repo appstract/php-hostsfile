@@ -12,10 +12,6 @@ class Processor
      */
     protected $filePath;
 
-    /**
-     * @var string
-     */
-    protected $bakPath;
 
     protected $lines;
 
@@ -41,7 +37,6 @@ class Processor
         }
 
         $this->filePath = realpath($filePath);
-        $this->bakPath = realpath($filePath).'.bak';
 
         $this->lines = new Collection();
 
@@ -68,9 +63,9 @@ class Processor
      * @return $this
      * @throws Exception
      */
-    public function addLine($ip, $domain, $aliases = '')
+    public function addLine($ip, $domain, $aliases = [])
     {
-        $this->lines->push(['ip' => trim($ip), 'domain' => trim($domain), 'aliases' => trim($aliases)]);
+        $this->lines->push(['ip' => trim($ip), 'domain' => trim($domain), 'aliases' => $aliases]);
 
         return $this;
     }
@@ -80,13 +75,17 @@ class Processor
      *
      * @param        $ip
      * @param        $domain
-     * @param string $aliases
+     * @param array $aliases
      *
      * @return Processor
      */
-    public function set($ip, $domain, $aliases = '')
+    public function set($ip, $domain, $aliases = [])
     {
         $this->removeLine($domain);
+
+        if (! is_array($aliases)) {
+            $aliases = [$aliases];
+        }
 
         return $this->addLine($ip, $domain, $aliases);
     }
@@ -145,7 +144,7 @@ class Processor
      */
     protected function parseLine($line)
     {
-        $matches = $this->explodeLine($line);
+        $matches = $this->explodeLine(trim($line));
 
         if (isset($matches[1], $matches[2])) {
             $ip = $matches[1];
@@ -153,10 +152,10 @@ class Processor
 
             if (isset($domainLine[1])) {
                 $domain = $domainLine[1];
-                $aliases = isset($domainLine[2]) ? $domainLine[2] : '';
+                $aliases = isset($domainLine[2]) ? explode(' ', trim($domainLine[2])) : [];
             } else {
                 $domain = $matches[2];
-                $aliases = '';
+                $aliases = [];
             }
 
             $this->addLine($ip, $domain, $aliases);
@@ -196,7 +195,13 @@ class Processor
         $file = fopen($filePath, 'w');
 
         foreach ($this->getLines() as $line) {
-            fwrite($file, $line['ip']."\t\t".$line['domain'].' '.$line['aliases']." \r\n");
+            $aliases = '';
+
+            if (count($line['aliases']) > 0) {
+                $aliases = ' '.$aliases.implode(' ', $line['aliases']);
+            }
+
+            fwrite($file, $line['ip']."\t\t".$line['domain'].$aliases." \r\n");
         }
 
         fclose($file);

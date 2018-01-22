@@ -4,7 +4,7 @@
 [![Total Downloads](https://img.shields.io/packagist/dt/appstract/php-hostsfile.svg?style=flat-square)](https://packagist.org/packages/appstract/php-hostsfile)
 [![Software License](https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square)](LICENSE.md)
 
-Read & Write Entries From the HostsFile with PHP
+Read & Write Entries From the HostsFile with PHP.
 
 ## Installation
 

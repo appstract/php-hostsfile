@@ -18,6 +18,7 @@ composer require appstract/php-hostsfile
 
 ```php
 $host = new Appstract\HostsFile\Processor($path); // optional path to the file
+
 $host->getLines(); // get all lines in the hostsfile
 $host->addLine($ip, $domain, $aliases); // add a new line to the hostsfile
 $host->set($ip, $domain, $aliases); // add a new line and overwrite any existing
